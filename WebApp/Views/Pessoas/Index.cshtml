@@ -1,0 +1,107 @@
+﻿@model IEnumerable<WebApp.Models.Pessoa>
+
+@{
+    ViewBag.Title = "HOME";
+}
+
+
+
+@using (Html.BeginForm("preparaFiltros", "Pessoas"))
+{
+    <div class="row" style="margin-top:100px">
+        <div class="col-md-6">
+            <h4>NOME/RAZAO SOCIAL</h4>
+        </div>
+        <div class="col-md-6">
+            <h4>EMAIL</h4>
+        </div>
+    </div>
+    <div class="row m-t" style="margin-bottom:100px">
+        <div class="col-md-4">
+            <input name="nomeRazaoSocial" type="text" class="form-control" placeholder="Usuário" value=@ViewBag.nomeRazaoSocial />
+        </div>
+        <div class="col-md-4">
+            <input name="email" type="text" class="form-control" placeholder="Email" value=@ViewBag.email />
+        </div>
+        <div class="col-md-4">
+            @Html.ActionLink("NOVO", "Create", null,new { @class="btn btn-default" })
+            <input type="submit" value="BUSCAR"  class="btn btn-default"/>
+        </div>
+    </div>
+
+}
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayName("NOME/RAZÃO SOCIAL")
+        </th>
+        <th>
+            @Html.DisplayName("CEP")
+        </th>
+        <th>
+            @Html.DisplayName("EMAIL")
+        </th>
+        <th>
+            @Html.DisplayName("CLASSIFICAÇÃO")
+        </th>
+        <th>
+            @Html.DisplayName("CPF/CNPJ")
+        </th>
+        <th>
+            @Html.DisplayName("TIPO PESSOA")
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.NomeRazaoSocial)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Cep)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            <td>
+                @if (item.Classificacao == "A")
+                {
+                    @Html.DisplayName("ATIVO")
+
+                }
+                @if (item.Classificacao == "I")
+                {
+                    @Html.DisplayName("INATIO")
+                }
+                @if (item.Classificacao == "P")
+                {
+                    @Html.DisplayName("PREFERENCIAL")
+                }
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CpfCnpj)
+            </td>
+            <td>
+
+                @if (item.TipoPessoa == "F")
+                {
+                    @Html.DisplayName("PESSOA FISICA")
+
+                }
+                @if (item.TipoPessoa == "J")
+                {
+                    @Html.DisplayName("PESSOA JURIDIA")
+                }
+            </td>
+            <td>
+                @Html.ActionLink("UPDATE", "Edit", new { id = item.Id }) |
+                @Html.ActionLink("DETALHES", "Details", new { id = item.Id }) |
+                @Html.ActionLink("DELETE", "Delete", new { id = item.Id })
+            </td>
+        </tr>
+    }
+
+</table>

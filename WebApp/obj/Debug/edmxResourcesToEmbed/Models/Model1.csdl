@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="DatabaseModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Pessoa">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" />
+    <Property Name="NomeRazaoSocial" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Cep" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Classificacao" Type="String" MaxLength="1" FixedLength="true" Unicode="false" Nullable="false" />
+    <Property Name="CpfCnpj" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="TipoPessoa" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+    <NavigationProperty Name="Telefone" Relationship="Self.FK_PessoaToTelefone" FromRole="Pessoa" ToRole="Telefone" />
+  </EntityType>
+  <EntityType Name="Telefone">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" />
+    <Property Name="PessoaId" Type="Int32" Nullable="false" />
+    <Property Name="NumeroTelefone" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="Pessoa" Relationship="Self.FK_PessoaToTelefone" FromRole="Telefone" ToRole="Pessoa" />
+  </EntityType>
+  <Association Name="FK_PessoaToTelefone">
+    <End Role="Pessoa" Type="Self.Pessoa" Multiplicity="1" />
+    <End Role="Telefone" Type="Self.Telefone" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Pessoa">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Telefone">
+        <PropertyRef Name="PessoaId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="DatabaseEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Pessoa" EntityType="Self.Pessoa" />
+    <EntitySet Name="Telefone" EntityType="Self.Telefone" />
+    <AssociationSet Name="FK_PessoaToTelefone" Association="Self.FK_PessoaToTelefone">
+      <End Role="Pessoa" EntitySet="Pessoa" />
+      <End Role="Telefone" EntitySet="Telefone" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

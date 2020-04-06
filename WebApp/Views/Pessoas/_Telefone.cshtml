@@ -1,0 +1,8 @@
+﻿@model WebApp.Models.Telefone
+
+@using (Html.BeginCollectionItem("Telefone"))
+{
+    <div id="telefoneRow" class="telefoneRow">
+        @Html.EditorFor(model => model.NumeroTelefone, new { htmlAttributes = new { @class = "form-control" } })
+    </div>
+}

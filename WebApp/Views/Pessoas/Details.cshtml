@@ -1,0 +1,75 @@
+﻿@model WebApp.Models.Pessoa
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>PESSOA</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayName("NOME/RAZÃO SOCIAL")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NomeRazaoSocial)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("CEP")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Cep)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("EMAIL")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("CLASSIFICAÇÃO")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Classificacao)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("CPF/CNPJ")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CpfCnpj)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("TIPO PESSOA")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TipoPessoa)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("TELEFONE")
+        </dt>
+
+        @foreach (var t in Model.Telefone) {
+            <dd>
+                @t.NumeroTelefone
+            </dd>
+        }
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("VOLTAR", "Index")
+</p>
